@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 
 import { User, AADUser } from "../models/user";
 import { Http } from "@angular/http/src/http";
-import { promise } from "selenium-webdriver";
 
 @Injectable()
 export class UserService{
