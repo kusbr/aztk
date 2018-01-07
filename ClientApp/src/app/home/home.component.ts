@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from "../common/models/user";
-import { UserService } from "../common/services/user.service";
 
 
 @Component({
@@ -9,11 +7,8 @@ import { UserService } from "../common/services/user.service";
 })
 
 export class HomeComponent implements OnInit{
-  user: User;
-  userService: UserService;
-
-  constructor(userService: UserService){
-    this.userService = userService;
+  constructor(){
+    //this.userService = userService;
   }
 
   ngOnInit(): void{
