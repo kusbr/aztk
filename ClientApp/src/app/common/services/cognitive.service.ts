@@ -26,10 +26,12 @@ import { resetFakeAsyncZone } from '@angular/core/testing';
      }
 
      analyzeImage(request: ComputerVisionRequest) : Observable<ComputerVisionResponse>{
-         let imageDetectionApiUrl = 'https://southeastasia.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Description,Tags';
-         return this.http.post(imageDetectionApiUrl, this.computerVisionAPIKey, request)
+         let imageDetectionApiUrl = 'https://southeastasia.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Description,Tags,Categories,Faces';
+         let res = this.http.post(imageDetectionApiUrl, this.computerVisionAPIKey, request)
             .map(response => response.json() as ComputerVisionResponse)
             .catch(this.handleError);
+        
+        return res;
      }
 
      private handleError(error: any): Promise<any> {
