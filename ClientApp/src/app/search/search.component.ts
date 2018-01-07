@@ -3,6 +3,7 @@ import { CognitiveService } from '../common/services/cognitive.service';
 import { ImageResult } from '../common/models/bingSearchResponse';
 import { ComputerVisionRequest, ComputerVisionResponse } from "../common/models/computerVisionResponse";
 import { resource } from 'selenium-webdriver/http';
+import { AzureToolkitService } from '../common/services/azuretoolkit.service';
 
 @Component({
   selector: 'app-search',
@@ -15,8 +16,9 @@ export class SearchComponent {
   currentAnalytics : ComputerVisionResponse | null;
   currentItem : ImageResult | null;
   isAnalyzing = false;
+  currentItemSaved: boolean;
 
-  constructor(private cognitiveService : CognitiveService){}
+  constructor(private cognitiveService : CognitiveService, private azureToolkitService: AzureToolkitService){}
 
   search(searchTerm: string){
     this.searchResults = null;
@@ -39,5 +41,19 @@ export class SearchComponent {
                             this.isAnalyzing = false;
                           });
     window.scroll(0, 0);
+  }
+
+  saveImage(){
+    let transferObject = {
+      url: this.currentItem.thumbnailUrl,
+      encodingFormat: this.currentItem.encodingFormat,
+      id: this.currentItem.imageId
+    };
+
+    this.azureToolkitService.saveImages(transferObject)
+                            .subscribe(saveSuccessful => {
+                                  this.currentItemSaved = saveSuccessful;
+                            });
+    }
   }
 }

@@ -21,6 +21,8 @@
                       *ngFor="let tag of currentAnalytics?.tags">
                                 {{tag.name}}
                 </span>
+                <button *ngIf="!currentItemSaved" (click)="saveImage()">Save Image</button>
+                <span *ngIf="currentItemSaved">Image Saved!</span>
             </div>
         </div>
         <div *ngIf="isAnalyzing">
